@@ -55,3 +55,10 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+const cards = document.getElementById('card')
+
+function modifCard(){
+    const card = document.createElement('div');
+    card.className = 'post-meta_icon';
+    card.innerHTML = `<img src = "${value.url}" class="profile-pic" alt="${value.title}"></img>`;   
+}
