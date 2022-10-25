@@ -55,10 +55,63 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
-const cards = document.getElementById('card')
+/* Prendendo come riferimento il layout di 
+esempio presente nell'html, stampiamo i post del nostro feed. */
 
-function modifCard(){
-    const card = document.createElement('div');
-    card.className = 'post-meta_icon';
-    card.innerHTML = `<img src = "${value.url}" class="profile-pic" alt="${value.title}"></img>`;   
+//prendo ID card
+const cards = document.getElementById('card');
+//scrivo una funzione dove mi genero il template
+function drawpost(){
+    const container = document.getElementById('container');
+
+        cards.forEach((value,index)=>{
+        const post = document.createElement('div');
+        cards.className = 'post';
+        const template = 
+        ` <div class="post">
+        <div class="post__header">
+            <div class="post-meta">                    
+                <div class="post-meta__icon">
+                    <img class="profile-pic" src="${el.author.image}" alt="${el.author.name}">                    
+                </div>
+                <div class="post-meta__data">
+                    <div class="post-meta__author">${el.author.name}</div>
+                    <div class="post-meta__time">${el.created}</div>
+                </div>                    
+            </div>
+        </div>
+        <div class="post__text">${el.content}</div>
+        <div class="post__image">
+            <img src="${el.media}" alt="Foto posto ${el.id}">
+        </div>
+            <div class="post__footer">
+                <div class="likes js-likes">
+                    <div class="likes__cta">
+                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>
+                        </a>
+                    </div>
+                    <div class="likes__counter">
+                        Piace a <b id="${el.id}" class="js-likes-counter">80</b> persone
+                    </div>
+                </div> 
+            </div>            
+        </div> `;
+        post.innerHTML = template;
+        container.appendChild(post);
+    })
+   
 }
+drawpost();
+
+const likeButton = Array.from(document.querySelectorAll('.like-button'));
+//console.log(likeButton);
+likeButton.forEach((el, index)=>{
+    el.addEventListener('click', function(e){
+        e.preventDefault();
+        el.classList.toggle('like-button--liked');
+        const postID = posts[index].id
+    })
+   
+})
